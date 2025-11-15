@@ -42,3 +42,7 @@ subscriber.subscribe("notification", async (message, channel) => {
         console.error("Error occured: ", error);
     }
 });
+
+self.addEventListener("close", () => {
+    subscriber.unsubscribe("notification");
+});
