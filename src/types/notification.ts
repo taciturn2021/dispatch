@@ -1,8 +1,8 @@
 import { z } from "zod";
 
-export const NotificationSchema = z.object({
-  id: z.string(),
-  type: z.enum(["email", "sms", "push", "discord"]),
+export const NotificationAPISchema = z.object({
+  userId: z.string(),
+  channel: z.enum(["email", "sms", "push", "discord"]),
   content: z.object({
     subject: z.string().optional(),
     message: z.string(),
@@ -10,4 +10,18 @@ export const NotificationSchema = z.object({
   priority: z.enum(["low", "medium", "high"]).optional(),
 });
 
-export type Notification = z.infer<typeof NotificationSchema>;
+
+export const NotificationJobSchema = z.object({
+    userId: z.string(),
+    id: z.string(),
+    channel: z.enum(["email", "sms", "push", "discord"]),
+    content: z.object({
+      subject: z.string().optional(),
+      message: z.string(),
+    }),
+    priority: z.enum(["low", "medium", "high"]).optional(),
+  });
+
+  export type NotificationJob = z.infer<typeof NotificationJobSchema>;
+
+

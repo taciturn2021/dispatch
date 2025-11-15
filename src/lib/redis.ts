@@ -1,17 +1,28 @@
-import {RedisClient } from "bun";
+import { RedisClient } from "bun";
 
-let client: RedisClient;
+let subscriberInstance: RedisClient | null = null;
+let commandInstance: RedisClient | null = null;
 
-if (process.env.REDIS_URL){
-    console.log("Initializing Redis Client...")
-    client = new RedisClient(process.env.REDIS_URL);
-    console.log("Redis Client initialized successfully!");
-}else {
-    console.log("REDIS_URL NOT SET IN ENVIRONMENT VARiABLE");
-    process.exit(1);
+export function getRedisSubscriber(): RedisClient {
+  if (!subscriberInstance) {
+    if (!process.env.REDIS_URL) {
+      console.error("REDIS_URL NOT SET");
+      process.exit(1);
+    }
+    subscriberInstance = new RedisClient(process.env.REDIS_URL);
+    console.log("Redis Subscriber Client initialized");
+  }
+  return subscriberInstance;
 }
 
-export {client}
-
-
-
+export function getRedisClient(): RedisClient {
+  if (!commandInstance) {
+    if (!process.env.REDIS_URL) {
+      console.error("REDIS_URL NOT SET");
+      process.exit(1);
+    }
+    commandInstance = new RedisClient(process.env.REDIS_URL);
+    console.log("Redis Command Client initialized");
+  }
+  return commandInstance;
+}
