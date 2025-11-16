@@ -27,9 +27,16 @@ export const handleNotification = async (req: Request): Promise<Response> => {
     // to implement: user preferences
 
 
-    // publish job for worker:
+
+
+    // publish job for  realtime worker:
     console.log("Publishing job for user: ", jobMessage.userId);
-    client.publish(`notification`, JSON.stringify(jobMessage));
+    await client.publish(`notification`, JSON.stringify(jobMessage));
+
+    // add job to queue for reliability:
+    console.log("Adding job to queue for user: ", jobMessage.userId);
+    await client.lpush(`queue:reliable`, JSON.stringify({...jobMessage, timestamp: Date.now(), retryCount: 0}));
+
 
 
 

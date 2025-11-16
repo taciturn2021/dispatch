@@ -1,8 +1,10 @@
 import {hash} from "bun";
 import type { NotificationJob } from "../types/notification";
 import { getRedisClient } from "../lib/redis";
+import { config } from "../config";
+
 const client = getRedisClient();
-const cooldown = parseInt(process.env.COOLDOWN || "300") ; // 300 seconds or 5 minutes by default
+const cooldown = config.cooldownSeconds; // 300 sec/ 5 minutes by default
 
 export const deduplicate = async (notification: NotificationJob) => {
 const {id, ...dataToHash} = notification;

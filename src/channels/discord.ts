@@ -1,20 +1,25 @@
 import type { NotificationJob } from "../types/notification";
+import { config } from "../config";
+
 export const discordHandler = async (notification: NotificationJob): Promise<boolean> => {
-    const WEBHOOK_URL = process.env.DISCORD_WEBHOOK;
-    
+    const WEBHOOK_URL = config.discordURL;
+    if (!WEBHOOK_URL) {
+      console.error("Discord webhook URL is not configured");
+      return false;
+    }
+
     const payload = {
       content: notification.content.message,
       username: "Dispatch Bot",
-      // Optional: Add embeds for richer formatting
       embeds: notification.priority ? [
         {
           title: `[${notification.priority.toUpperCase()}] ${notification.content.subject || "Notification"}`,
           description: notification.content.message,
-          color: getPriorityColor(notification.priority), // 16711680 for red (high), 16776960 for yellow (medium), etc.
+          color: getPriorityColor(notification.priority), 
         }
       ] : undefined,
       // Query params
-      wait: true,  // Wait for Discord's confirmation
+      wait: true,  
     };
   
     try {
