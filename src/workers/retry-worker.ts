@@ -1,3 +1,5 @@
+console.log("[Retry Worker] boot");
+
 import { getRedisClient, addToRedis } from "../lib/redis"
 import { channelRouter } from "../channels/channelRouter";
 import type { NotificationJob } from "../types/notification";

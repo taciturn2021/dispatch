@@ -1,5 +1,4 @@
-declare var self: Worker;
-
+console.log("[Queue Worker] boot");
 import { getRedisClient } from "../lib/redis";
 
 

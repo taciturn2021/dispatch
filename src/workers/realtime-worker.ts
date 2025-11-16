@@ -1,5 +1,5 @@
 declare var self: Worker;
-
+console.log("[Realtime Worker] boot");
 import { NotificationJobSchema } from "../types/notification";
 import type { NotificationJob } from "../types/notification";
 import {channelRouter} from "../channels/channelRouter";
