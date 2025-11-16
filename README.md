@@ -1,4 +1,4 @@
-# Beacon - Multi-Channel Notification System
+# Dispatch - Multi-Channel Notification System
 
 A real-time notification delivery system supporting Email, SMS, Push, and Discord with intelligent rate limiting, retry logic, and user preferences.
 
