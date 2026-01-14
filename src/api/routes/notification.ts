@@ -16,17 +16,13 @@ export const handleNotification = async (req: Request): Promise<Response> => {
     const jobMessage: NotificationJob = {id, ...validatedData};
 
 
-    //to implement: rate limiting logic
+  
 
     // deduplication logic
     const dupeCheck = await deduplicate(jobMessage);
    if (dupeCheck.status === "duplicate") {
     return Response.json({ message: "duplicate message" }, { status: 429 });
    }
-
-    // to implement: user preferences
-
-
 
 
     // publish job for  realtime worker:

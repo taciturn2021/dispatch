@@ -14,7 +14,6 @@ A real-time notification delivery system supporting Email, SMS, Push, and Discor
 ┌──────────────────┐
 │   Bun API Server │
 │  - Validation    │
-│  - Rate Limiting │
 │  - Deduplication │
 └────┬─────────┬───┘
      │         │
@@ -38,9 +37,9 @@ A real-time notification delivery system supporting Email, SMS, Push, and Discor
        │ Channel Router│
        └───┬───────────┘
            │
-    ┌──────┼──────┬──────┐
-    ▼      ▼      ▼      ▼
-  Email  SMS   Push  Discord
+    ┌───────────┬
+    ▼           ▼      
+  Email       Discord
 ```
 
 ## 📊 Redis Data Structures
@@ -50,8 +49,6 @@ A real-time notification delivery system supporting Email, SMS, Push, and Discor
 | Pub/Sub Channels | `notification:user:{userId}` | Real-time delivery |
 | Lists | `queue:{channel}` | Job queues per channel |
 | Sorted Sets | `queue:retry` | Delayed retry queue |
-| Sorted Sets | `ratelimit:{userId}:{channel}` | Sliding window rate limits |
-| Hashes | `user:prefs:{userId}` | User notification preferences |
 | Strings (TTL) | `dedup:{hash}` | Prevent duplicate sends |
 | Strings | `notification:{id}:status` | Track notification state |
 
@@ -62,8 +59,6 @@ A real-time notification delivery system supporting Email, SMS, Push, and Discor
 - **Database**: PostgreSQL (optional, for history)
 - **Email**: Resend / SendGrid / Nodemailer
 - **Discord**: Discord.js or Webhooks
-- **SMS**: Twilio (optional)
-- **Push**: Firebase / OneSignal (optional)
 
 
 

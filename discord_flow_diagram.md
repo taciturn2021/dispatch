@@ -6,9 +6,7 @@
 └────────┬────────┘
          │
          ├─ Validate
-         ├─ Rate Limit Check (Redis Sorted Set) TBI
-         ├─ Dedup Check (Redis String) TBI
-         └─ User Prefs Check (Redis Hash) TBI
+         ├─ Dedup Check (Redis String) 
          │
          ▼
     ┌────────────────────┐
