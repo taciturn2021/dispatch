@@ -6,6 +6,7 @@ const envSchema = z.object({
   COOLDOWN: z.string().optional(),
   RETRY_INTERVAL: z.string().optional(),
   DISCORD_WEBHOOK: z.string().optional(),
+  EMAIL_APIKEY: z.string().optional(),
 });
 
 const env = envSchema.parse(process.env);
@@ -16,6 +17,7 @@ export const config = {
   cooldownSeconds: parseInt(env.COOLDOWN || "300"),
   retryInterval: parseInt(env.RETRY_INTERVAL || "5") * 1000,
   discordURL: env.DISCORD_WEBHOOK,
+  EMAIL_APIKEY: env.EMAIL_APIKEY,
 };
 
 
